@@ -35,7 +35,7 @@ function M.render_left(only_2wins)
     end
     if utils.has_adjacent_win(directions.down) then
         sep.end_symbol = config.opts.border[5]
-        sep_height = sep_height + 1
+        sep_height = sep_height + 1 -1 -- TODO: this also has to be changed ultimately
     end
 
     if only_2wins then
@@ -71,7 +71,7 @@ end
 function M.render_down(only_2wins)
     local sep_width = fn.winwidth(0)
     local current_row, current_col = unpack(api.nvim_win_get_position(0))
-    local anchor_row = current_row + fn.winheight(0)
+    local anchor_row = current_row + fn.winheight(0) - 1 -- FIXME: here it gets set
     local anchor_col = current_col
     local sep = M.separators.down
     sep.start_symbol = config.opts.border[1]
@@ -162,7 +162,7 @@ end
 
 ---@param only_2wins boolean we should deal with 2 windows situation
 function M.render_right(only_2wins)
-    local sep_height = fn.winheight(0)
+    local sep_height = fn.winheight(0) - 1 -- TODO: also here for the right one
     local current_row, current_col = unpack(api.nvim_win_get_position(0))
     local anchor_row = current_row
     local anchor_col = current_col + fn.winwidth(0)
